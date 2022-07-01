@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Practice scales with OnKey. OnKey is a music SCALES or CHORDS exercise generator. Just enter a few parameters and get the music NOTES for your scale practice." />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Onkey Lite: Scale Practice</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link href="images/favicon-32x32.png" rel="shortcut icon" type="image/x-icon" />
+    <script src="abcjs-basic-min.js"></script>
+  </head>
+  <body>
+    <div class="splash" style="background-color: #7196af;">
+      <img class="fade-in" src="images/onkey logo lite-05.png" alt="logo-01"  style="width: 380px; height: auto; " />
+    </div>
+    <div class="top header">
+      <img src="images/onkey logo-01.jpg" alt="logo-10" style="display: inline-block" id="whitelogo" />
+
+      <img src="images/onkey logo lite-05.png" alt="logo-01" style="display: inline-block" />
+     
+      <input type="image" src="images/settings-5670.png" name="saveForm" class="btTxt submit" id="settingsBTN" />
+     
+    </div>
+    <div class="msg" id="upgrademsg" style="display: none;">
+      <button class="closeUp" id="closeUpgrade">X</button>
+      <p style="margin-top: 30px; margin-bottom: 30px;">Upgrade to OnKey (Pro) and unlock even more Scales, Chords & patterns. </p>
+      <a href='https://play.google.com/store/apps/details?id=com.reameir.onkey&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank"><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
+     </div>
+    </div>
+    <div class="msg" id="notAvailable" style="display: none;">
+      <button class="closeUp" id="closeNA">X</button>
+      <p style="margin-top: 30px; margin-bottom: 30px;"> Unfortunally this feature is not available with OnKey Lite. <br> Upgrade to OnKey (Pro) and unlock even more Scales, Chords & patterns. </p>
+      <a href='https://play.google.com/store/apps/details?id=com.reameir.onkey&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank"><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
+     </div>
+    <div id="settingsMenu" style="display: none; "  >
+      <button id="closeSettings">X</button>
+      <br>
+      <h5 id="DoReMiFa" class="SettingsMenu">A B C / Do Re Mi</h5> 
+      <label  class="switch">
+        <input id="DoReMi" type="checkbox">
+        <span class="slider round"></span>
+      </label>
+      <hr>
+            
+      <h5  class="SettingsMenu">Start on Lowest Tonic / Next tonic</h5> 
+      <label  class="switch">
+        <input id="lowTon" type="checkbox">
+        <span class="slider round"></span>
+        </label>
+        <hr>
+        
+      <label  class="SettingsMenu" for="timeSig" id="timeLable">Time Signature</label>
+      <select class="settingDrop" name="timeSig" id="timeSigId" onchange="changeMeter()">
+        <option value="1">None</option>
+        <option value="2">4/4 quarter notes</option>
+        <option value="3">4/4 eights notes</option>
+        <option value="4">3/4 quarter notes 🔒</option>
+        <option value="5">3/4 eights notes  🔒</option>
+        <option value="6">6/8 eights notes  🔒</option>
+      </select>
+    </label>
+    <hr>
+    
+    <!-- <label  class="SettingsMenu" for="reverse" id="reverse">Reverse Pattern</label>
+    <select class="settingDrop" name="reverse" id="reverseId" onchange="">
+      <option value="1">Default</option>
+      <option value="2">Musical mode</option>
+      <option value="3">No Reverse</option>
+      TRYTRYTRY
+      TRYTRY
+    </select> -->
+      <button class="setBTN" id="editcustomscale">edit custom scale</button>
+      <hr>
+      
+      <button class="setBTN" id="about">about / info</button>
+      </div>
+    <div class="line1">
+      <h3 id="statement">I want to practice a</h3>
+      <!-- <label for="tonic" ;">select tonic</label> -->
+      <select id="tonic" onchange="setTonicValue()">
+        <option value="CN">C</option>
+        <option value="C#">C♯</option>   
+        <option value="Db">D♭</option>
+        <option value="DN">D</option>
+        <option value="D#">D#</option>
+        <option value="Eb">E♭</option>
+        <option value="EN">E</option>
+        <option value="FN">F</option>
+        <option value="F#">F♯</option>
+        <option value="Gb">G♭</option>
+        <option value="GN">G</option>
+        <option value="G#">G♯</option>
+        <option value="Ab">A♭</option>
+        <option value="AN">A</option>
+        <option value="A#">A♯</option>
+        <option value="Bb">B♭</option>
+        <option value="BN">B</option>
+      </select>
+      <!--<label for="scaleType" ;">select scale/chord</label>-->
+
+
+      <form action="#">
+      <select id="scaleType" onchange="setScaleTypeValue()">
+        <optgroup label="Scales"> 
+        <option value="majorScale">major scale</option>
+        <option value="minorScale">minor scale</option>
+        <option value="harmonicMinor">harmonic minor scale 🔒</option>
+        <option value="melodicMinorScale">melodic minor scale 🔒</option>
+
+        <option value="minorPentatonicScale">minor pentatonic scale 🔒</option>
+        <option value="majorPentatonicScale">major pentatonic scale 🔒</option>
+      </optgroup>
+      <optgroup label="Chords"> 
+        <option value="augChord">augmented triad chord</option>
+        <option value="majorChord">major triad chord</option>
+        <option value="minorChord">minor triad chord</option>
+        <option value="dimChord">diminished triad chord</option>
+        <option value="sus4Chord">sus4 triad chord 🔒</option>
+        <option value="sus2Chord">sus2 triad chord 🔒</option>
+
+        <option value="major7Chord">major 7 chord 🔒</option>
+        <option value="7Chord">dominant 7 chord 🔒</option>
+        <option value="minor7Chord">minor 7 chord 🔒</option>
+        <option value="m7b5">half-diminished chord 🔒</option>
+        <option value="dim7Chord">diminished 7 chord 🔒</option>
+      </optgroup>
+      <optgroup label="Modes">
+        <option value="Ionian">Ionian</option>
+        <option value="Dorian">Dorian 🔒</option>
+        <option value="Phrygian">Phrygian 🔒</option>
+        <option value="Lydian">Lydian 🔒</option>
+        <option value="Mixolydian">Mixolydian 🔒</option>
+        <option value="Aeolian">Aeolian 🔒</option>
+        <option value="Locrian">Locrian 🔒</option>
+      </optgroup>
+      <optgroup label="Create your own">
+        <option value="custom">custom scale OR chord 🔒</option>
+      </optgroup>
+      </select>
+    </form>
+    </div>
+    <div class="line2">
+    <h3 class="line2 fromto" id="from">from</h3>
+    <div class="line2 t1t2" id="target1"></div>
+    <div class="line2 t1t2 btns">
+      <span id="startnoteup" class="btn arrow up"></span>
+      <span id="startnotedown" class="btn arrow down"></span>
+    </div>
+  </div>
+  <div class="line2">
+    <h3 class="line2 fromto" id="to">to</h3>
+    <div class="line2 t1t2" id="target2"></div>
+    <div class="line2 t1t2 btns">
+      <span id="endnoteup" class="btn arrow up"></span>
+      <span id="endnotedown" class="btn arrow down"></span>
+    </div>
+  </div>
+<br>
+
+    <div class="line3">
+    <h3 class="line3" id="pattern">pattern:</h3>
+    <select
+      class="line3"
+      name="patternType"
+      id="patternType"
+      onchange="setPatternValue()"
+    >
+      <option value="default">Default</option>
+      <option value="3noteGroup">3 note group</option>
+      <option value="4noteGroup">4 note group</option>
+      <option value="3rds">Skip↑ Step↓ (thirds)</option>
+      <option value="4ths">Skip2↑ Skip↓ (4ths) 🔒</option>
+      <option value="5noteGroup">5 note group 🔒</option>
+      <option value="6noteGroup">6 note group 🔒</option>
+      <option value="diatonicTriads">Diatonic triads 🔒</option>
+      <option value="diatonic7ch">Diatonic 7 chords 🔒</option>
+      <option value="spider">3rd↑ 3rd↓ 🔒</option>
+      <option value="octaves">Octaves 🔒</option>
+    </select>
+  </div>
+  <div class="line3">
+    <h3 class="line3" id="selectclef">clef:</h3>
+    <select name="clef" id="clef" class="line3" onchange="changeClef()">
+      <option value="treble">Treble</option>
+      <option value="alto">Alto</option>
+      <option value="tenor">Tenor</option>
+      <option value="bass">Bass</option>
+    </select>
+  </div>
+    <div></div>
+    <button type="btn" class="btn" id="generate">Generate!</button>
+  <div id="targets">
+    <div id="target3"></div>
+    <div id="target5"></div>
+  </div>
+
+  <div id="info" style="display: none;">
+      <button id="closeinfo">X</button>
+      <br>
+      <p>
+        OnKey is a practicing aid tool for musicians of all levels, that generates scale and chord exercises. <br>
+      As we all know, every musician must (or should) practice his/her scales and chords on his/her instrument. <br>
+      Yes, learning by ear, or by heart is important, but sometimes it helps to SEE the music NOTES while practicing, leaving the player to concentrate more on the execution, the HOW, and less on WHAT to play. This is where OnKey comes in. <br>
+      Instead of reading in some method books of scale practice, and instead of writing the exercise down (either by a teacher or the student himself) just generate your exercise by inserting a few simple parameters and... happy practicing. <br>
+      We at OnKey wish you a happier more productive time when practicing your instrument. <br>
+      <br>
+      TO THE SHED !!! <br>
+      </p>
+      <p>
+      How to use: <br>
+      </p>
+
+      <table>
+      <tr>
+        <td> STEP ONE:  </td>  <td>  Select the appropriate clef for your instrument. </td> </tr>
+      <tr>
+        <td>
+        STEP TWO:  </td>   <td> Select the tonic - the center of the scale/chord - for your exercise. </td> </tr>
+      <tr>
+        <td>
+        STEP THREE:  </td>  <td> Select a scale/chord type </td> </tr>
+      <tr>
+        <td>
+        STEP FOUR:   </td> <td> Define  the range for you exercise, from where to where do  you wish to practice. </td> </tr>
+      <tr>
+        <td>
+        STEP FIVE:   </td>   <td> Select a pattern for your exercise. </td> </tr>
+        <tr>
+        <td>
+        STEP SIX:  </td> <td> Practice, Practice, Practice. </td> </tr>
+      <tr>
+        <td>
+        STEP SEVEN:   </td> <td> Repeat. </td> </tr>
+        </table>
+      <br>
+      <p>
+        contact: rea.meir@gmail.com
+      <br> 
+      <br>
+
+      OnKey was made by Tom & Rea Meir  © 2020     
+      </p>
+
+
+    </div>
+    <div class="card">
+      <div id="customScaleHeader">
+      <h3 id="customScaleH3" >Custom scale</h3>
+      <button id="doneEditCustomScale">Done</button>
+    </div>
+      <div id="target4"></div>
+      <div class="grid-container">
+        <div class="grid-item" style="opacity: 0"></div>
+        <div class="grid-item">Db</div>
+        <div class="grid-item">Eb</div>
+        <div class="grid-item" style="opacity: 0"></div>
+        <div class="grid-item">Gb</div>
+        <div class="grid-item">Ab</div>
+        <div class="grid-item">Bb</div>
+        <div class="grid-item" style="background-color: blue;">CN</div>
+        <div class="grid-item">DN</div>
+        <div class="grid-item">EN</div>
+        <div class="grid-item">FN</div>
+        <div class="grid-item">GN</div>
+        <div class="grid-item">AN</div>
+        <div class="grid-item">BN</div>
+        <div class="grid-item">C#</div>
+        <div class="grid-item">D#</div>
+        <div class="grid-item" style="opacity: 0"></div>
+        <div class="grid-item">F#</div>
+        <div class="grid-item">G#</div>
+        <div class="grid-item">A#</div>
+        <div class="grid-item" style="opacity: 0"></div>     
+       
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
