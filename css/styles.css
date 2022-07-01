@@ -185,6 +185,9 @@ span.arrow {
   width: 35px;
 }
 
+.banner {
+  width: ;
+}
 #whitelogo {
   position: absolute;
   left: 20px;
@@ -279,7 +282,7 @@ span.arrow {
 .msg {
   background-color: white;
   position: relative;
-  width: 60vw;
+  width: fit-content;
   height: fit-content;
   margin: 2% auto;
   border-color: black;
