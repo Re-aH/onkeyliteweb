@@ -35,6 +35,14 @@ hr {
   background-color: #4f62ad;
   border: none;
 }
+.dark-mode {
+  background-color: rgb(43, 43, 43);
+  color: white;
+}
+
+.invert {
+  filter: invert(100%);
+}
 
 .top {
   background-color: #7196af;
@@ -216,6 +224,15 @@ span.arrow {
 #DoReMiFa {
   margin-right: 100px;
 }
+
+#DispName {
+  margin-right: 80px;
+}
+
+#lightDark {
+  margin-right: 90px;
+}
+
 #customScaleHeader {
   padding-top: 0.1%;
   color: white;
@@ -281,6 +298,7 @@ span.arrow {
 
 .msg {
   background-color: white;
+  color: black;
   position: relative;
   width: fit-content;
   height: fit-content;
