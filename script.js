@@ -536,6 +536,7 @@ ABCJS.renderAbc('target2', `L: 1/4 \n V:4 clef=${Clef} \n ${highestNote[2]}`)
 //find all notes by range
 
 function findNotes() {
+
     lowestNote = notesByRange[lowNoteIndex]
     highestNote = notesByRange[highNoteIndex]
 
@@ -550,14 +551,96 @@ function findNotes() {
     currentRange = notesByRange.slice(lowNoteIndexEnharmonic, highNoteIndexEnharmonic + 1)
 
 
+    // console.log(lowestNote, highestNote);
+    // console.log(currentRange);
+
+    //fix enharmony spelling in top range
+
+
+    // console.log(highestNote[0]);
+
+
+    function removeItemsFromArrayEnd(array, ...positions) {
+        // Sort positions in descending order
+        positions.sort((a, b) => b - a);
+
+        // Remove items from the array end
+        for (let i = 0; i < positions.length; i++) {
+            const index = array.length - positions[i];
+            array.splice(index, 1);
+        }
+
+        return array;
+    }
+
+    let positionsToRemoveFromEnd = [];
+
+    if (highestNote[0] === 'C#' || highestNote[0] === 'D#' || highestNote[0] === 'F#' || highestNote[0] === 'G#' || highestNote[0] === 'A#') { positionsToRemoveFromEnd = [3] }
+
+    if (highestNote[0] === 'AN' || highestNote[0] === 'GN' || highestNote[0] === 'DN') {
+        positionsToRemoveFromEnd = [2, 3]
+    }
+
+    if (highestNote[0] === 'CN' || highestNote[0] === 'FN') {
+        positionsToRemoveFromEnd = [2, 3, 7]
+    }
+
+    if (highestNote[0] === 'BN' || highestNote[0] === 'EN') {
+        positionsToRemoveFromEnd = [4, 3]
+    }
+
+    if (highestNote[0] === 'Bb' || highestNote[0] === 'Eb') {
+        positionsToRemoveFromEnd = [2, 3, 4, 7]
+    }
+
+    if (highestNote[0] === 'Gb' || highestNote[0] === 'Ab' || highestNote[0] === 'Db') {
+        positionsToRemoveFromEnd = [1, 2, 3, 6]
+    }
+
+
+
+
+    currentRange = removeItemsFromArrayEnd(currentRange, ...positionsToRemoveFromEnd)
+    // console.log(currentRange);
+
+
+    // Remove items from the array start
+    function removeItemsFromArrayStart(array, ...indexes) {
+        // Sort indexes in ascending order
+        indexes.sort((a, b) => a - b);
+
+        // Remove items from the array
+        for (let i = indexes.length - 1; i >= 0; i--) {
+            const index = indexes[i];
+            array.splice(index, 1);
+        }
+
+        return array;
+    }
+
+
+    let positionsToRemoveFromStart = []
+    if (lowestNote[0] === 'BN' || lowestNote[0] === 'EN' || lowestNote[0] === 'GN' || lowestNote[0] === 'FN' || lowestNote[0] === 'DN' || lowestNote[0] === 'AN') { positionsToRemoveFromStart = [1, 2] }
+
+    if (lowestNote[0] === 'Gb' || lowestNote[0] === 'Bb' || lowestNote[0] === 'Db' || lowestNote[0] === 'Eb' || lowestNote[0] === 'Ab') { positionsToRemoveFromStart = [2] }
+
+    if (lowestNote[0] === 'A#' || lowestNote[0] === 'D#' || lowestNote[0] === 'G#') { positionsToRemoveFromStart = [0, 1, 2, 5] }
+
+    if (lowestNote[0] === 'C#' || lowestNote[0] === 'F#') { positionsToRemoveFromStart = [1, 2, 3, 6] }
+
+    if (lowestNote[0] === 'CN') { positionsToRemoveFromStart = [2, 3] }
+
+    currentRange = removeItemsFromArrayStart(currentRange, ...positionsToRemoveFromStart)
+
+
+
+
     //filter only notes that are in the scale
 
 
 
     let currentScaleSet = new Set(currentScale)
 
-    // console.log(currentScaleSet);
-    // console.log(lowestNote, highestNote);
     // console.log(currentScaleSet);
 
     currentScaleWithRange = []
