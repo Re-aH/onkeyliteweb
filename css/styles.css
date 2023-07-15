@@ -51,7 +51,7 @@ hr {
 .line2 {
   display: inline-block;
   margin-right: 10px;
-  @media only screen and(max width:767) {
+  @media only screen and(max-width:767) {
     margin: auto;
   }
 }
@@ -63,6 +63,10 @@ hr {
 
 .fromto {
   position: relative;
+}
+
+#tonic {
+  margin-bottom: 30px;
 }
 
 #from {
@@ -193,9 +197,10 @@ span.arrow {
   width: 35px;
 }
 
-.banner {
-  width: ;
+#timeSigId {
+  width: 170px;
 }
+
 #whitelogo {
   position: absolute;
   left: 20px;
