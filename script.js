@@ -358,11 +358,13 @@ function saveHighNoteIdxToLocal() {
 stratDownBtn.addEventListener('click', function () {
     checkDownLogic()
     displayLowRangePitch()
+    saveLowNoteIdxToLocal()
 })
 
 stratUpBtn.addEventListener('click', function () {
     checkUpLogic()
     displayLowRangePitch()
+    saveLowNoteIdxToLocal()
 })
 
 const displayHighRangePitch = function () {
