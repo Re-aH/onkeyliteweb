@@ -582,3 +582,24 @@ table {
   text-align: center; /* To center the content inside the targets */
   margin-bottom: 10px; /* Optional margin between targets */
 }
+
+@media print and (width: 21cm) and (height: 29.7cm) {
+  @page {
+    margin: 3cm;
+  }
+  body,
+  html {
+    height: 100%;
+  }
+}
+
+/* style sheet for "letter" printing */
+@media print and (width: 8.5in) and (height: 11in) {
+  @page {
+    margin: 1in;
+  }
+  body,
+  html {
+    height: 100%;
+  }
+}
