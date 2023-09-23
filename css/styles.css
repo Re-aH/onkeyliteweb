@@ -51,7 +51,7 @@ hr {
 .line2 {
   display: inline-block;
   margin-right: 10px;
-  @media only screen and(max-width:767) {
+  @media only screen and(max width:767) {
     margin: auto;
   }
 }
@@ -63,10 +63,6 @@ hr {
 
 .fromto {
   position: relative;
-}
-
-#tonic {
-  margin-bottom: 30px;
 }
 
 #from {
@@ -197,10 +193,9 @@ span.arrow {
   width: 35px;
 }
 
-#timeSigId {
-  width: 170px;
+.banner {
+  width: ;
 }
-
 #whitelogo {
   position: absolute;
   left: 20px;
@@ -547,4 +542,43 @@ table {
   svg {
     width: 330px;
   }
+
+  .printIcon {
+    width: 25px;
+  }
+
+  #whitelogo {
+    width: 50px;
+    top: 25px;
+  }
+  #fadeIn {
+    width: 380px;
+  }
+  #liteLogo {
+    width: 80px;
+  }
+  #settingsBTN {
+    top: 15px;
+  }
+}
+
+#targets {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.printIcon {
+  margin-right: 12px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#target3,
+#target5 {
+  width: 100%; /* To make the targets take full width */
+  text-align: center; /* To center the content inside the targets */
+  margin-bottom: 10px; /* Optional margin between targets */
 }
