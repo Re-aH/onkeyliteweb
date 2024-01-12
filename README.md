@@ -1,5 +1,5 @@
 # OnKeylite - Scale Practice 
-OnKey is a practicing aid tool for musicians of all levels, that generates scale and chord exercises.
+OnKey Lite is the free lite version of OnKey -  a practicing aid tool for musicians of all levels, that generates scale and chord exercises.
 Just enter a few basic parameters and get the music NOTES for your exercise.
 For all instruments and all levels.
 As we all know, every musician must (or should) practice his/her scales and chords on his/her instrument.
