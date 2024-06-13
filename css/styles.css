@@ -553,12 +553,12 @@ table {
   position: relative;
 }
 
-/* .printIcon {
-  margin-right: 12px;
+.printIcon {
+  margin-right: 20px;
   position: absolute;
   top: 0;
   right: 0;
-} */
+}
 
 /* #target3,
 #target5 {
