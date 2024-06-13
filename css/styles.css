@@ -567,7 +567,7 @@ table {
   margin-bottom: 10px; 
 } */
 
-/* @media print and (width: 21cm) and (height: 29.7cm) {
+ @media print and (width: 21cm) and (height: 29.7cm) {
   @page {
     margin: 3cm;
   }
@@ -575,10 +575,10 @@ table {
   html {
     height: 100%;
   }
-} */
+} 
 
 /* style sheet for "letter" printing */
-/* @media print and (width: 8.5in) and (height: 11in) {
+ @media print and (width: 8.5in) and (height: 11in) {
   @page {
     margin: 1in;
   }
@@ -586,7 +586,7 @@ table {
   html {
     height: 100%;
   }
-} */
+} 
 
 /* audio controller css */
 #audio-bpm {
