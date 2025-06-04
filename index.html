@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1, user-scalable=no" />
     <meta name="description" content="Practice scales with OnKey. OnKey is a music SCALES or CHORDS exercise generator. Just enter a few parameters and get the music NOTES for your scale practice." />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="author" content="Rea Meir">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta property="og:title" content="OnKey - Scale Practice">
+    <meta property="og:description" content="OnKey Scale Practice - is a practicing aid tool for musicians. A scale and chord exercise generator for all instruments. Just enter a few basic parameters and get the NOTES for your exercise.">
+    <meta property="og:image" content="images/onkey logo note with blue gradient.jpg">
+    <meta property="og:url" content="https://onkey.netlify.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="OnKey - Scale Practice">
+    <meta property="og:locale" content="en_US">
     <title>Onkey Lite: Scale Practice</title>
     <link rel="stylesheet" href="css/styles.css" />
     <link href="images/favicon-32x32.png" rel="shortcut icon" type="image/x-icon" />
@@ -137,7 +147,15 @@
         <span class="slider round"></span>
       </label>
       <hr>
-            
+       
+      
+      <h5 id="keySignatureText" class="SettingsMenu">Show Key Signature</h5> 
+      <label  class="switch">
+        <input id="keySignature" type="checkbox">
+        <span class="slider round"></span>
+      </label>
+      <hr>
+
       <h5  class="SettingsMenu">Start on Lowest Tonic / Next tonic</h5> 
       <label  class="switch">
         <input id="lowTon" type="checkbox">
@@ -148,7 +166,7 @@
       <label  class="SettingsMenu" for="timeSig" id="timeLable">Time Signature</label>
       <select class="settingDrop" name="timeSig" id="timeSigId" onchange="changeMeter()">
         <option value="1">None</option>
-        <option value="2">4/4 quarter notes</option>
+        <option value="2" selected>4/4 quarter notes</option>
         <option value="3">4/4 eights notes</option>
         <option value="4">3/4 quarter notes 🔒</option>
         <option value="5">3/4 eights notes  🔒</option>
@@ -156,6 +174,8 @@
       </select>
     </label>
     <hr>
+
+
     <label  class="SettingsMenu" for="transpose" id="transLable">Transposition </label>
     <select class="settingDrop" name="transpose" id="transId" onchange="changeTransposition()">
       <option value=0>None (Concert)</option>
@@ -180,6 +200,16 @@
   <hr>
 
 
+  <label  class="SettingsMenu" for="countdownBars" id="countdownBarsLable">
+    Countdown Bars </label>
+  <select class="settingDrop" name="countdownBars" id="countdownBarsId"
+   onchange="changeCountdownBars()">
+    <option value=0>0</option>
+    <option value=1 selected>1</option>
+    <option value=2>2</option>
+  <!-- add more -->
+  </select>
+<hr>
     
     <h5  class="SettingsMenu" id="DispName">Display Note Names</h5> 
       <label  class="switch">
@@ -345,6 +375,7 @@
     <svg  onclick="printDiv()"  id="printIcn" class="printIcon" enable-background="new 0 0 50 50" height="25px" id="Layer_1" version="1.1" viewBox="0 0 50 50" width="25px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="none" height="50" width="50"/><circle cx="43" cy="21" r="2"/><path d="M40,15V1H10v14" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><path d="M40,29v20H10V29H40z" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><path d="M10,40H3  c-1.104,0-2-0.896-2-2V17c0-1.104,0.896-2,2-2h44c1.104,0,2,0.896,2,2v21c0,1.104-0.896,2-2,2h-7" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" x1="35" x2="15" y1="35" y2="35"/><line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" x1="31" x2="15" y1="39" y2="39"/><line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" x1="35" x2="15" y1="43" y2="43"/></svg>
     <div id="target3"></div>
     <div id="target5"></div>
+    <div id="countdown" style="display: none;"></div>
     
     <div id="audio-bpm">
       <div id="audio">

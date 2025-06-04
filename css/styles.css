@@ -223,10 +223,10 @@ span.arrow {
   margin-right: 15px;
   width: 35px;
 }
-
+/* 
 .banner {
-  width: ;
-}
+  /* width: ; */
+/* } */
 #whitelogo {
   /* position: absolute; */
   /* left: 20px; */
@@ -255,6 +255,24 @@ span.arrow {
 
 #DoReMiFa {
   margin-right: 100px;
+}
+
+#timeLable {
+  margin-right: 175px;
+  margin-top: 5px;
+}
+
+#timeSigId {
+  margin-left: 85px;
+  margin-bottom: 5px;
+}
+
+#keySignatureText {
+  margin-right: 90px;
+}
+
+#countdownBarsLable {
+  margin-right: 115px;
 }
 
 #DispName {
@@ -567,7 +585,7 @@ table {
   margin-bottom: 10px; 
 } */
 
- @media print and (width: 21cm) and (height: 29.7cm) {
+/* @media print and (width: 21cm) and (height: 29.7cm) {
   @page {
     margin: 3cm;
   }
@@ -575,10 +593,10 @@ table {
   html {
     height: 100%;
   }
-} 
+} */
 
 /* style sheet for "letter" printing */
- @media print and (width: 8.5in) and (height: 11in) {
+/* @media print and (width: 8.5in) and (height: 11in) {
   @page {
     margin: 1in;
   }
@@ -586,7 +604,7 @@ table {
   html {
     height: 100%;
   }
-} 
+} */
 
 /* audio controller css */
 #audio-bpm {

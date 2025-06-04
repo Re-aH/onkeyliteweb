@@ -180,6 +180,7 @@ document.getElementById('scaleType').value = foundKey
 
 let abcString = ''
 let abcStringPor = ''
+let abcStringForSoundOnly = ''
 const statement = document.getElementById('statement')
 const generateBTN = document.getElementById('generate');
 const stratDownBtn = document.getElementById('startnotedown')
@@ -201,7 +202,7 @@ const displyNoteNameSwitch = document.getElementById('NoteNames')
 const upgradegBTN = document.getElementById('whitelogo')
 const lightSwitch = document.getElementById('lightSwitch')
 // const rangeBtns = document.querySelectorAll('.btns')
-
+const keySignatureSwitch = document.getElementById('keySignature')
 const tempoUpBtn = document.getElementById('upBtn')
 const tempoDnBtn = document.getElementById('dnBtn')
 let bpm = onKeyDataFromLocalStorage?.bpm ?? 120;
@@ -227,9 +228,13 @@ let Clef = onKeyDataFromLocalStorage?.clef ?? 'treble'
 let oldClef = onKeyDataFromLocalStorage?.oldClef ?? []
 document.getElementById("clef").value = Clef
 DoReMiSwitch.checked = onKeyDataFromLocalStorage?.DoReMiSwitchIsChecked ?? false
-
+let keySignatureType = onKeyDataFromLocalStorage?.keySignatureType ?? '';
+let keySignatureName = onKeyDataFromLocalStorage?.keySignatureName ?? 'C';
+let showKeySignature = onKeyDataFromLocalStorage?.showKeySignature ?? false;
+keySignatureSwitch.checked = showKeySignature;
 let currentRange = ''
 let transposition = onKeyDataFromLocalStorage?.transposition ?? document.getElementById('transId').value
+let countdownBars = onKeyDataFromLocalStorage?.countdownBars ?? document.getElementById('countdownBarsId').value
 let meter = onKeyDataFromLocalStorage?.meter ?? meters.get(document.getElementById('timeSigId').value)
 let currentScaleWithRange = []
 let currentPattern = onKeyDataFromLocalStorage?.pattern ?? patterns.get((document.getElementById('patternType').value));
@@ -250,6 +255,7 @@ function getMeterByValue(map, value) {
 
 document.getElementById('timeSigId').value = getMeterByValue(meters, meter)
 document.getElementById('transId').value = transposition
+document.getElementById('countdownBarsId').value = countdownBars
 
 
 let selectedCustomNumbers = []
@@ -820,7 +826,9 @@ function generate() {
 
 
 
-    } else { alert('not enough range for pattern') }
+    } else {
+        // alert('not enough range for pattern') 
+    }
 
     // exercise.push(currentScaleWithRange[(exercise.length + 2)])
     // console.log((document.getElementById('scaleType').value));
@@ -868,6 +876,8 @@ function generate() {
     })
 
     // console.log(abcArr);
+    const abcArrForSoundOnly = [...abcArr];
+    abcStringForSoundOnly = abcArrForSoundOnly.join('');
     // console.log(abcArrWithNoteNames);
     // console.log(exercise);
     let abcArrPor
@@ -879,7 +889,76 @@ function generate() {
     }
     // console.log(meter);
 
+    function addFermata(arr) {
+        arr[arr.length - 1] = '!fermata!' + arr[arr.length - 1];
+    }
 
+    function correctLastNoteQartersFourFour(arr) {
+
+        // console.log(  (arr.length ) % 4, arr);
+        if ((arr.length) % 4 === 1) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '4';
+        }
+        if ((arr.length) % 4 === 3) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '2';
+        }
+        addFermata(arr);
+    }
+
+    function correctLastNoteQartersThreeFour(arr) {
+
+        // console.log(  (arr.length ) % 4, arr);
+        if ((arr.length) % 3 === 1) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '3';
+        }
+        if ((arr.length) % 3 === 2) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '2';
+        }
+        addFermata(arr);
+    }
+
+    function correctLastNoteEightsFourFour(arr) {
+        if ((arr.length) % 8 === 1) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '8';
+        }
+        if ((arr.length) % 8 === 3) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '6';
+        }
+        if ((arr.length) % 8 === 5) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '4';
+        }
+        if ((arr.length) % 8 === 7) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '2';
+        }
+        addFermata(arr);
+    }
+
+    function correctLastNoteEightsThreeFour(arr) {
+        if ((arr.length) % 6 === 1) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '6';
+        }
+        if ((arr.length) % 6 === 3) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '4';
+        }
+        if ((arr.length) % 6 === 5) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '2';
+        }
+        addFermata(arr);
+    }
+
+    function correctLastNoteEightsSixEight(arr) {
+        if ((arr.length) % 6 === 1) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '6';
+            addFermata(arr);
+        }
+        if ((arr.length) % 6 === 3) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '-' + '!fermata!' + arr[arr.length - 1] + '3';
+        }
+        if ((arr.length) % 6 === 5) {
+            arr[arr.length - 1] = arr[arr.length - 1] + '2';
+            addFermata(arr);
+        }
+    }
     //Landcape design
     if (meter === 'M: \n L:1/4 \n') {
         //quarter notes and no time signiture
@@ -890,6 +969,7 @@ function generate() {
     }
     if (meter === 'M:4/4 \n L:1/4 \n') {
         //quarter notes and 4/4 time signiture
+        correctLastNoteQartersFourFour(abcArr);
         for (var itemIndex = 4; itemIndex < abcArr.length; itemIndex += 5) {
 
             abcArr.splice(itemIndex, 0, '|');
@@ -902,6 +982,7 @@ function generate() {
     }
 
     if (meter === 'M:4/4 \n L:1/8 \n') {
+        correctLastNoteEightsFourFour(abcArr);
         for (var itemIndex = 4; itemIndex < abcArr.length; itemIndex += 9) {
 
             abcArr.splice(itemIndex, 0, ' ');
@@ -917,8 +998,9 @@ function generate() {
 
     }
     function setDefaultMeter() {
-        meter = 'M: \n L:1/4 \n'
+        meter = 'M:4/4 \n L:1/4 \n'
     }
+
     if (meter === 'M:3/4 \n L:1/4 \n') {
 
         displayNAmsg()
@@ -972,7 +1054,307 @@ function generate() {
     }
 
     // console.log(abcArr);
+    const scaleTypesThatCanBeUsedWithMajorKeySignature =
+        ['majorScale',
+            'Ionian',
+            'Mixolydian',
+            'Lydian',
+            'Lydb7',
+            'H-P5↓',
+            'AugLyd',
+            'majorPentatonicScale',
+            'majorChord',
+            'augChord',
+            'sus4Chord',
+            'sus2Chord',
+            'major7Chord',
+            '7Chord',
+            '7sus4Chord',
+            'augmented7Chord',
+            'augmentedMaj7Chord',
+        ];
 
+    const scaleTypesThatCanBeUsedWithMinorKeySignature =
+        ['minorScale',
+            'harmonicMinor',
+            'melodicMinorScale',
+            'minorPentatonicScale',
+            'minorChord',
+            'minor7Chord',
+            'm7b5',
+            'minorMaj7Chord',
+            'Dorian',
+            'Phrygian',
+            'Aeolian',
+            'Locrian',
+
+        ]
+
+
+    function addKeySignature(arr) {
+        if (!showKeySignature) {
+            keySignatureName = 'C';
+            return
+        };  // Use the variable instead of directly checking the switch
+
+        // Determine key signature type
+        if (scaleTypesThatCanBeUsedWithMajorKeySignature.includes(scaleType.selectedOptions[0].value)) {
+            keySignatureType = 'major';
+        } else if (scaleTypesThatCanBeUsedWithMinorKeySignature.includes(scaleType.selectedOptions[0].value)) {
+            keySignatureType = 'minor';
+        } else {
+            keySignatureName = 'C';
+            return;
+        }
+
+        // Define key signature name
+        keySignatureName = (tonic.endsWith('N') ? tonic.slice(0, -1) : tonic) +
+            (keySignatureType === 'minor' ? ' minor' : '');
+
+        // console.log(keySignatureName);
+
+        // Handle specific key signatures
+        if (keySignatureName === 'C' || keySignatureName === 'A minor'
+            || keySignatureName === 'A#' || keySignatureName === 'D#' ||
+            keySignatureName === 'B# minor' || keySignatureName === 'G#' ||
+            keySignatureName === 'E# minor'
+        ) {
+            // Natural key signature - no changes needed
+            keySignatureName = 'C';
+            return;
+        }
+
+        // Function to handle flat removal and natural sign addition
+        const processKeySignatureFlats = (notesToProcess) => {
+            // Process each note in the array
+            for (let i = 0; i < arr.length; i++) {
+                if (typeof arr[i] === 'string') {
+                    // Special handling for the last note
+                    if (i === arr.length - 1) {
+                        // Extract the note letter regardless of position
+                        let noteLetter = '';
+                        if (arr[i].includes('!fermata!')) {
+                            const match = arr[i].match(/!fermata!_?([A-Ga-g])/);
+                            if (match) noteLetter = match[1];
+                        } else {
+                            const match = arr[i].match(/^_?([A-Ga-g])/);
+                            if (match) noteLetter = match[1];
+                        }
+
+                        // If this note should be processed
+                        if (noteLetter && notesToProcess.includes(noteLetter.toUpperCase())) {
+                            // Handle all possible flat positions
+                            if (arr[i].includes('!fermata!')) {
+                                // Handle flats after fermata
+                                if (arr[i].includes('!fermata!_')) {
+                                    arr[i] = arr[i].replace('!fermata!_', '!fermata!');
+                                }
+                                // Handle flats before fermata
+                                if (arr[i].startsWith('_')) {
+                                    arr[i] = arr[i].slice(1);
+                                }
+                            } else if (arr[i].startsWith('_')) {
+                                arr[i] = arr[i].slice(1);
+                            }
+                        }
+                        continue;
+                    }
+
+                    // Handle tied notes
+                    if (arr[i].includes('-')) {
+                        const parts = arr[i].split('-');
+                        // Handle first part of tie
+                        const firstNoteMatch = parts[0].match(/([A-Ga-g])([,']*)/);
+                        if (parts[0].startsWith('_') && firstNoteMatch && notesToProcess.includes(firstNoteMatch[1].toUpperCase())) {
+                            parts[0] = parts[0].slice(1);
+                        } else if (/^[A-Ga-g][,']*$/.test(parts[0]) && notesToProcess.includes(parts[0][0].toUpperCase())) {
+                            parts[0] = '=' + parts[0];
+                        }
+                        // Handle second part of tie - just remove flat if needed, no natural sign
+                        if (parts[1].startsWith('!fermata!_')) {
+                            const match = parts[1].match(/^!fermata!_([A-Ga-g][,']*?)(\d*)$/);
+                            if (match && notesToProcess.includes(match[1][0].toUpperCase())) {
+                                parts[1] = `!fermata!${match[1]}${match[2]}`;
+                            }
+                        }
+                        arr[i] = parts.join('-');
+                    }
+                    // Handle regular notes with flat
+                    else if (arr[i].startsWith('_')) {
+                        const noteMatch = arr[i].match(/([A-Ga-g])([,']*)/);
+                        if (noteMatch && notesToProcess.includes(noteMatch[1].toUpperCase())) {
+                            arr[i] = arr[i].slice(1);
+                        }
+                    }
+                    // Handle notes with fermata and flat
+                    else if (arr[i].startsWith('!fermata!_')) {
+                        const match = arr[i].match(/^!fermata!_([A-Ga-g][,']*?)(\d*)$/);
+                        if (match && notesToProcess.includes(match[1][0].toUpperCase())) {
+                            arr[i] = `!fermata!${match[1]}${match[2]}`;
+                        }
+                    }
+                    // Handle natural notes - add natural sign only for notes in notesToProcess
+                    else if (/^[A-Ga-g][,']*$/.test(arr[i])) {
+                        if (notesToProcess.includes(arr[i][0].toUpperCase())) {
+                            arr[i] = '=' + arr[i];
+                        }
+                    }
+                    // Handle natural notes with fermata - add natural sign only for notes in notesToProcess
+                    else if (arr[i].startsWith('!fermata!')) {
+                        const noteMatch = arr[i].match(/([A-Ga-g])([,']*)/);
+                        if (noteMatch && notesToProcess.includes(noteMatch[1].toUpperCase())) {
+                            arr[i] = arr[i].replace('!fermata!', '!fermata!=');
+                        }
+                    }
+                }
+            }
+        };
+
+        // Function to handle sharp removal and natural sign addition
+        const processKeySignatureSharps = (notesToProcess) => {
+            // Process each note in the array
+            for (let i = 0; i < arr.length; i++) {
+                if (typeof arr[i] === 'string') {
+                    // Special handling for the last note
+                    if (i === arr.length - 1) {
+                        // Extract the note letter regardless of position
+                        let noteLetter = '';
+                        if (arr[i].includes('!fermata!')) {
+                            const match = arr[i].match(/!fermata!\^?([A-Ga-g])/);
+                            if (match) noteLetter = match[1];
+                        } else {
+                            const match = arr[i].match(/^\^?([A-Ga-g])/);
+                            if (match) noteLetter = match[1];
+                        }
+
+                        // If this note should be processed
+                        if (noteLetter && notesToProcess.includes(noteLetter.toUpperCase())) {
+                            // Handle all possible sharp positions
+                            if (arr[i].includes('!fermata!')) {
+                                // Handle sharps after fermata
+                                if (arr[i].includes('!fermata!^')) {
+                                    arr[i] = arr[i].replace('!fermata!^', '!fermata!');
+                                }
+                                // Handle sharps before fermata
+                                if (arr[i].startsWith('^')) {
+                                    arr[i] = arr[i].slice(1);
+                                }
+                            } else if (arr[i].startsWith('^')) {
+                                arr[i] = arr[i].slice(1);
+                            }
+                        }
+                        continue;
+                    }
+
+                    // Handle tied notes
+                    if (arr[i].includes('-')) {
+                        const parts = arr[i].split('-');
+                        // Handle first part of tie
+                        const firstNoteMatch = parts[0].match(/([A-Ga-g])([,']*)/);
+                        if (parts[0].startsWith('^') && firstNoteMatch && notesToProcess.includes(firstNoteMatch[1].toUpperCase())) {
+                            parts[0] = parts[0].slice(1);
+                        } else if (/^[A-Ga-g][,']*$/.test(parts[0]) && notesToProcess.includes(parts[0][0].toUpperCase())) {
+                            parts[0] = '=' + parts[0];
+                        }
+                        // Handle second part of tie - just remove sharp if needed, no natural sign
+                        if (parts[1].startsWith('!fermata!^')) {
+                            const match = parts[1].match(/^!fermata!\^([A-Ga-g][,']*?)(\d*)$/);
+                            if (match && notesToProcess.includes(match[1][0].toUpperCase())) {
+                                parts[1] = `!fermata!${match[1]}${match[2]}`;
+                            }
+                        }
+                        arr[i] = parts.join('-');
+                    }
+                    // Handle regular notes with sharp
+                    else if (arr[i].startsWith('^')) {
+                        const noteMatch = arr[i].match(/([A-Ga-g])([,']*)/);
+                        if (noteMatch && notesToProcess.includes(noteMatch[1].toUpperCase())) {
+                            arr[i] = arr[i].slice(1);
+                        }
+                    }
+                    // Handle notes with fermata and sharp
+                    else if (arr[i].startsWith('!fermata!^')) {
+                        const match = arr[i].match(/^!fermata!\^([A-Ga-g][,']*?)(\d*)$/);
+                        if (match && notesToProcess.includes(match[1][0].toUpperCase())) {
+                            arr[i] = `!fermata!${match[1]}${match[2]}`;
+                        }
+                    }
+                    // Handle natural notes - add natural sign only for notes in notesToProcess
+                    else if (/^[A-Ga-g][,']*$/.test(arr[i])) {
+                        if (notesToProcess.includes(arr[i][0].toUpperCase())) {
+                            arr[i] = '=' + arr[i];
+                        }
+                    }
+                    // Handle natural notes with fermata - add natural sign only for notes in notesToProcess
+                    else if (arr[i].startsWith('!fermata!')) {
+                        const noteMatch = arr[i].match(/([A-Ga-g])([,']*)/);
+                        if (noteMatch && notesToProcess.includes(noteMatch[1].toUpperCase())) {
+                            arr[i] = arr[i].replace('!fermata!', '!fermata!=');
+                        }
+                    }
+                }
+            }
+        };
+
+        // Call appropriate function based on key signature
+        switch (keySignatureName) {
+            case 'C#':
+            case 'A# minor':
+                processKeySignatureSharps(['C', 'D', 'E', 'F', 'G', 'A', 'B']);
+                break;
+            case 'Db':
+            case 'Bb minor':
+                processKeySignatureFlats(['D', 'E', 'G', 'A', 'B']);
+                break;
+            case 'D':
+            case 'B minor':
+                processKeySignatureSharps(['C', 'F']);
+                break;
+            case 'Eb':
+            case 'C minor':
+                processKeySignatureFlats(['B', 'E', 'A']);
+                break;
+            case 'E':
+            case 'C# minor':
+                processKeySignatureSharps(['F', 'C', 'G', 'D']);
+                break;
+            case 'F':
+            case 'D minor':
+                processKeySignatureFlats(['B']);
+                break;
+            case 'F#':
+            case 'D# minor':
+                processKeySignatureSharps(['F', 'C', 'G', 'D', 'A', 'E']);
+                break;
+            case 'Gb':
+            case 'Eb minor':
+                processKeySignatureFlats(['D', 'E', 'G', 'A', 'B', 'C']);
+                break;
+            case 'G':
+            case 'E minor':
+                processKeySignatureSharps(['F']);
+                break;
+            case 'Ab':
+            case 'F minor':
+                processKeySignatureFlats(['B', 'E', 'A', 'D']);
+                break;
+            case 'A':
+            case 'F# minor':
+                processKeySignatureSharps(['F', 'C', 'G']);
+                break;
+            case 'Bb':
+            case 'G minor':
+                processKeySignatureFlats(['B', 'E']);
+                break;
+            case 'B':
+            case 'G# minor':
+                processKeySignatureSharps(['F', 'C', 'G', 'D', 'A']);
+                break;
+            // No default case needed since we already handle C major/A minor earlier
+        }
+    }
+    addKeySignature(abcArr);
+    addKeySignature(abcArrPor);
     abcString = abcArr.join('')
 
 
@@ -980,7 +1362,9 @@ function generate() {
 
 
     //show exercise notes for landscape
-    const visualObj = ABCJS.renderAbc('target3', `%%staffwidth 7.2in \n%%printtempo false \n${meter} [K: clef=${Clef}] \nQ:1/4=${bpm} \n%%stretchlast false \n ${abcString} |]`,);
+    ABCJS.renderAbc('target3', `%%staffwidth 7.2in \n%%printtempo false \n${meter} 
+    [K:${keySignatureName} clef=${Clef}] \nQ:1/4=${bpm} \n%%stretchlast false \n ${abcString} |]`,);
+
     // console.log('target3', `${meter} clef=${Clef} \n ${abcString} |]`);
 
     //show exercise notes for Portrait
@@ -993,6 +1377,7 @@ function generate() {
     }
     if (meter === 'M:4/4 \n L:1/4 \n') {
         //quarter notes and 4/4 time signiture
+        correctLastNoteQartersFourFour(abcArrPor);
         for (var itemIndex = 4; itemIndex < abcArrPor.length; itemIndex += 5) {
 
             abcArrPor.splice(itemIndex, 0, '|');
@@ -1005,6 +1390,7 @@ function generate() {
     }
 
     if (meter === 'M:4/4 \n L:1/8 \n') {
+        correctLastNoteEightsFourFour(abcArrPor);
         for (var itemIndex = 4; itemIndex < abcArrPor.length; itemIndex += 9) {
 
             abcArrPor.splice(itemIndex, 0, ' ');
@@ -1025,46 +1411,52 @@ function generate() {
 
         //     abcArrPor.splice(itemIndex, 0, ' ');
         // }
-        for (var itemIndex = 3; itemIndex < abcArrPor.length; itemIndex += 4) {
+        displayNAmsg()
+        setDefaultMeter()
+        // for (var itemIndex = 3; itemIndex < abcArrPor.length; itemIndex += 4) {
 
-            abcArrPor.splice(itemIndex, 0, '|');
-        }
-        for (var itemIndex = 12; itemIndex < abcArrPor.length; itemIndex += 13) {
+        //     abcArrPor.splice(itemIndex, 0, '|');
+        // }
+        // for (var itemIndex = 12; itemIndex < abcArrPor.length; itemIndex += 13) {
 
-            abcArrPor.splice(itemIndex, 0, '\n');
-        }
+        //     abcArrPor.splice(itemIndex, 0, '\n');
+        // }
 
     }
 
     if (meter === 'M:3/4 \n L:1/8 \n') {
-        for (var itemIndex = 2; itemIndex < abcArrPor.length; itemIndex += 3) {
+        displayNAmsg()
+        setDefaultMeter()
+        // for (var itemIndex = 2; itemIndex < abcArrPor.length; itemIndex += 3) {
 
-            abcArrPor.splice(itemIndex, 0, ' ');
-        }
-        for (var itemIndex = 9; itemIndex < abcArrPor.length; itemIndex += 10) {
+        //     abcArrPor.splice(itemIndex, 0, ' ');
+        // }
+        // for (var itemIndex = 9; itemIndex < abcArrPor.length; itemIndex += 10) {
 
-            abcArrPor.splice(itemIndex, 0, '|');
-        }
-        for (var itemIndex = 20; itemIndex < abcArrPor.length; itemIndex += 21) {
+        //     abcArrPor.splice(itemIndex, 0, '|');
+        // }
+        // for (var itemIndex = 20; itemIndex < abcArrPor.length; itemIndex += 21) {
 
-            abcArrPor.splice(itemIndex, 0, '\n');
-        }
+        //     abcArrPor.splice(itemIndex, 0, '\n');
+        // }
 
     }
 
     if (meter === 'M:6/8 \n L:1/8 \n') {
-        for (var itemIndex = 3; itemIndex < abcArrPor.length; itemIndex += 4) {
+        displayNAmsg()
+        setDefaultMeter()
+        // for (var itemIndex = 3; itemIndex < abcArrPor.length; itemIndex += 4) {
 
-            abcArrPor.splice(itemIndex, 0, ' ');
-        }
-        for (var itemIndex = 8; itemIndex < abcArrPor.length; itemIndex += 9) {
+        //     abcArrPor.splice(itemIndex, 0, ' ');
+        // }
+        // for (var itemIndex = 8; itemIndex < abcArrPor.length; itemIndex += 9) {
 
-            abcArrPor.splice(itemIndex, 0, '|');
-        }
-        for (var itemIndex = 18; itemIndex < abcArrPor.length; itemIndex += 19) {
+        //     abcArrPor.splice(itemIndex, 0, '|');
+        // }
+        // for (var itemIndex = 18; itemIndex < abcArrPor.length; itemIndex += 19) {
 
-            abcArrPor.splice(itemIndex, 0, '\n');
-        }
+        //     abcArrPor.splice(itemIndex, 0, '\n');
+        // }
 
     }
 
@@ -1074,11 +1466,11 @@ function generate() {
 
 
     abcStringPor = abcArrPor.join('')
-    ABCJS.renderAbc('target5', `%%staffwidth 3in \n${meter} [K: clef=${Clef}] \n ${abcStringPor} |]`)
+    ABCJS.renderAbc('target5', `%%staffwidth 3in \n${meter} [K:${keySignatureName} clef=${Clef}] \n ${abcStringPor} |]`,)
     // console.log(`%%staffwidth 3in \n  ${meter} [K: clef=${Clef}] \n ${abcStringPor} |]`);
 
 
-    playSound(visualObj, transposition)
+    playSound(transposition)
 }
 
 
@@ -1089,12 +1481,20 @@ generateExBTN()
 function changeMeter() {
     meter = meters.get(document.getElementById('timeSigId').value)
     // console.log(meter);
-    generate()
-        ;
-    onKeyData = { ...onKeyData, meter: meter }
-    updateLocalStorage()
+    var meterDropdown = document.getElementById('timeSigId');
+    var meterText = meterDropdown.options[meterDropdown.selectedIndex].text
+    // console.log(meterText);
+    if (meterText.includes('🔒')) {
+        displayNAmsg()
+        // notAvailableMsg.style.display = 'inline-block';
+        // alert('this feature is available with OnKey (Pro)')
+    } else {
+        generate()
+            ;
+        onKeyData = { ...onKeyData, meter: meter }
+        updateLocalStorage()
+    }
 }
-
 
 
 function changeTransposition() {
@@ -1108,6 +1508,14 @@ function changeTransposition() {
 
 }
 
+function changeCountdownBars() {
+    countdownBars = document.getElementById('countdownBarsId').value
+
+    generate();
+
+    onKeyData = { ...onKeyData, countdownBars: countdownBars }
+    updateLocalStorage()
+}
 //custom scale/chord
 
 //select elements from dom
@@ -1326,7 +1734,17 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 })
 
-
+keySignatureSwitch.addEventListener('click', function () {
+    showKeySignature = keySignatureSwitch.checked;  // Update the variable
+    onKeyData = {
+        ...onKeyData,
+        showKeySignature: showKeySignature,
+        keySignatureType: keySignatureType,
+        keySignatureName: keySignatureName
+    };
+    updateLocalStorage();
+    generate();
+});
 //dark mode
 
 function lightDarkFunc() {
@@ -1388,7 +1806,6 @@ function printDiv() {
 const scaleDropDown = document.getElementById('scaleType');
 
 
-
 function playSound(visualObj, transposition) {
     var CursorControl = function () {
         this.beatSubdivisions = 2;
@@ -1407,43 +1824,68 @@ function playSound(visualObj, transposition) {
     }
 
     var cursorControl = new CursorControl();
-    synthControl = new ABCJS.synth.SynthController();
-    synthControl.load("#audio", cursorControl, { displayPlay: true, displayProgress: false });
-    // var abc = "X:1\n etc...";
-    var abcOptions = { add_classes: true, };
-    //change to a vaiable for transposition
-    var audioParams = { chordsOff: true, midiTranspose: transposition, defaultQpm: 100 };
+    var audioParams = { chordsOff: true, midiTranspose: transposition, defaultQpm: bpm };
 
     if (ABCJS.synth.supportsAudio()) {
+        // Initialize a single synth controller
         var synthControl = new ABCJS.synth.SynthController();
-        // console.log(ABCJS.synth.SynthController);
-
         synthControl.load("#audio",
             cursorControl,
             {
-                // displayLoop: true,
-                // displayRestart: true,
                 displayPlay: true,
                 displayProgress: true,
                 displayWarp: true
             }
         );
 
+        // Get number of beats and beat length for countdown based on time signature
+        let numBeats = 4 * countdownBars; // Default to 4/4
+        let countdownMeter = 'M:4/4\nL:1/4\n';
+        // let beatLength = '4/4';
+        let countdownNotes = '';
 
+        if (meter.includes('3/4')) {
+            numBeats = 3 * countdownBars;
+            for (let i = 0; i < numBeats; i++) {
+                countdownNotes += "C";
+                if (i < numBeats - 1) countdownNotes += " ";
+            }
+        } else if (meter.includes('6/8')) {
+            numBeats = 2 * countdownBars; // Two dotted quarter notes per measure in 6/8
+            countdownMeter = 'M:6/8\nL:1/8\n'; // Set base unit to eighth notes
+            // Create two dotted quarter notes (each equals 3 eighth notes)
+            countdownNotes = "C3 C3";
+        } else {
+            // 4/4 time
+            for (let i = 0; i < numBeats; i++) {
+                countdownNotes += "C";
+                if (i < numBeats - 1) countdownNotes += " ";
+            }
+        }
 
-        var createSynth = new ABCJS.synth.CreateSynth();
-        // console.log({ visualObj: visualObj[0] });
-        createSynth.init({ visualObj: visualObj[0] }).then(function () {
+        // Create a single ABC string with both countdown and main tune
+        let combinedAbc = `X:1\n${countdownMeter}[K: clef=${Clef}]\nQ:1/4=${bpm}\nV:1\n%%MIDI program 115\n`;
 
-            // console.log({ visualObj: visualObj[0] })
+        // Add countdown with appropriate note lengths
+        combinedAbc += countdownNotes;
+        combinedAbc += "|\n"; // End countdown measure
 
-            synthControl.setTune(visualObj[0], false, audioParams).then(function () {
-                // console.log("Audio successfully loaded.")
-            }).catch(function (error) {
-                // console.warn("Audio problem:", error);
-            });
+        // Add main tune with program change and original meter/length
+        combinedAbc += "%%MIDI program 0\n"; // Switch to piano
+        combinedAbc += meter; // Reset to original meter and note length
+        combinedAbc += abcStringForSoundOnly;
+
+        // Render the combined music (hidden)
+        var combinedVisualObj = ABCJS.renderAbc('countdown', combinedAbc, {
+            displayWidth: 0,
+            add_classes: true
+        });
+
+        // Set up the combined tune
+        synthControl.setTune(combinedVisualObj[0], false, audioParams).then(function () {
+            // console.log("Audio successfully loaded.");
         }).catch(function (error) {
-            // console.warn("Audio problem:", error);
+            console.warn("Audio problem:", error);
         });
     } else {
         document.querySelector("#audio").innerHTML =
