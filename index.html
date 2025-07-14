@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Practice scales with OnKey. OnKey is a music SCALES or CHORDS exercise generator. Just enter a few parameters and get the music NOTES for your scale practice." />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <meta name="author" content="Rea Meir">
@@ -148,13 +148,26 @@
       </label>
       <hr>
        
-      
       <h5 id="keySignatureText" class="SettingsMenu">Show Key Signature</h5> 
       <label  class="switch">
         <input id="keySignature" type="checkbox">
         <span class="slider round"></span>
       </label>
       <hr>
+
+            <h5 id="startDownText" class="SettingsMenu">Start Down</h5> 
+        <label  class="switch">
+          <input id="startDownSwitch" type="checkbox">
+          <span class="slider round"></span>
+        </label>
+        <hr>
+
+      <h5 id="reversePatternText" class="SettingsMenu">Reverse Pattern Going Down</h5> 
+        <label  class="switch" >
+          <input id="reversePatternSwitch" type="checkbox">
+          <span class="slider round" ></span>
+        </label>
+        <hr>
 
       <h5  class="SettingsMenu">Start on Lowest Tonic / Next tonic</h5> 
       <label  class="switch">
@@ -174,8 +187,6 @@
       </select>
     </label>
     <hr>
-
-
     <label  class="SettingsMenu" for="transpose" id="transLable">Transposition </label>
     <select class="settingDrop" name="transpose" id="transId" onchange="changeTransposition()">
       <option value=0>None (Concert)</option>
@@ -263,10 +274,20 @@
 
 
       <form action="#">
-      <select id="scaleType" onchange="setScaleTypeValue()">
+  <select id="scaleType" onchange="setScaleTypeValue()">
         <optgroup label="Scales"> 
         <option value="majorScale">major scale</option>
         <option value="minorScale">minor scale</option>
+      </optgroup>
+      <optgroup label="Triad Chords"> 
+        <option value="augChord">augmented chord</option>
+        <option value="majorChord">major chord</option>
+        <option value="minorChord">minor chord</option>
+        <option value="dimChord">diminished chord</option>
+        <option value="sus4Chord">sus4 chord 🔒</option>
+        <option value="sus2Chord">sus2 chord 🔒</option>
+      </optgroup>
+        <optgroup label="More Scales"> 
         <option value="harmonicMinor">harmonic minor scale 🔒</option>
         <option value="melodicMinorScale">melodic minor scale 🔒</option>
 
@@ -281,14 +302,6 @@
         <option value="majorPentatonicScale">symmetric diminished scale 🔒</option>
         <option value="majorPentatonicScale">symmetric augmented scale 🔒</option>
         
-      </optgroup>
-      <optgroup label="Triad Chords"> 
-        <option value="augChord">augmented chord</option>
-        <option value="majorChord">major chord</option>
-        <option value="minorChord">minor chord</option>
-        <option value="dimChord">diminished chord</option>
-        <option value="sus4Chord">sus4 chord 🔒</option>
-        <option value="sus2Chord">sus2 chord 🔒</option>
       </optgroup>
       <optgroup label="7th Chords">
         <option value="major7Chord">major 7 chord 🔒</option>
@@ -346,11 +359,12 @@
       id="patternType"
       onchange="setPatternValue()"
            >
-        <option value="default">Default</option>
+     <option value="default">Default</option>
         <option value="3noteGroup">3 note group</option>
         <option value="4noteGroup">4 note group</option>
         <option value="3rds">Skip↑ Step↓ (thirds)</option>
         <option value="4ths">Skip2↑ Skip↓ (4ths) 🔒</option>
+         <option value="5ths">Skip3↑ Skip2↓ (5ths) 🔒</option>
         <option value="5noteGroup">5 note group 🔒</option>
         <option value="6noteGroup">6 note group 🔒</option>
         <option value="diatonicTriads">Diatonic triads 🔒</option>

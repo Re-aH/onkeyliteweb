@@ -1,3 +1,10 @@
+.printIcon {
+  margin-right: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 body {
   background-color: rgb(255, 255, 255);
   text-align: center;
@@ -9,10 +16,10 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
-
 select {
   font-size: 1.2rem;
-  font-weight: 100;
+  font-weight: 400;
+  border-radius: 7px;
 }
 
 img {
@@ -223,10 +230,10 @@ span.arrow {
   margin-right: 15px;
   width: 35px;
 }
-/* 
-.banner {
-  /* width: ; */
-/* } */
+
+/* .banner {
+  width: ;
+} */
 #whitelogo {
   /* position: absolute; */
   /* left: 20px; */
@@ -269,6 +276,14 @@ span.arrow {
 
 #keySignatureText {
   margin-right: 90px;
+}
+
+#startDownText {
+  margin-right: 148px;
+}
+
+#reversePatternText {
+  margin-right: 25px;
 }
 
 #countdownBarsLable {
@@ -571,12 +586,12 @@ table {
   position: relative;
 }
 
-.printIcon {
-  margin-right: 20px;
+/* .printIcon {
+  margin-right: 12px;
   position: absolute;
   top: 0;
   right: 0;
-}
+} */
 
 /* #target3,
 #target5 {
@@ -843,13 +858,6 @@ table {
 
 #dnBtn {
   padding-right: 5px;
-}
-
-@media screen and (orientation: landscape) and (max-height: 500px) {
-  body {
-    width: calc(100% - 60px);
-    margin-left: 45px;
-  }
 }
 
 @media screen and (min-width: 650px) {
