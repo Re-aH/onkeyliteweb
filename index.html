@@ -138,116 +138,136 @@
       <!-- google play -->
       <a class="banner" href='https://play.google.com/store/apps/details?id=com.reameir.onkey&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank"><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
      </div>
-    <div id="settingsMenu" style="display: none; "  >
+   <div id="settingsMenu" style="display: none">
       <button id="closeSettings">X</button>
-      <br>
-      <h5 id="DoReMiFa" class="SettingsMenu">A B C / Do Re Mi</h5> 
-      <label  class="switch">
-        <input id="DoReMi" type="checkbox">
-        <span class="slider round"></span>
-      </label>
-      <hr>
-       
-      <h5 id="keySignatureText" class="SettingsMenu">Show Key Signature</h5> 
-      <label  class="switch">
-        <input id="keySignature" type="checkbox">
-        <span class="slider round"></span>
-      </label>
-      <hr>
-
-            <h5 id="startDownText" class="SettingsMenu">Start Down</h5> 
-        <label  class="switch">
-          <input id="startDownSwitch" type="checkbox">
+      <br />
+      <div class="settings-row">
+        <h5 id="DoReMiFa" class="SettingsMenu">A B C / Do Re Mi</h5>
+        <label class="switch">
+          <input id="DoReMi" type="checkbox" />
           <span class="slider round"></span>
         </label>
-        <hr>
-
-      <h5 id="reversePatternText" class="SettingsMenu">Reverse Pattern Going Down</h5> 
-        <label  class="switch" >
-          <input id="reversePatternSwitch" type="checkbox">
-          <span class="slider round" ></span>
-        </label>
-        <hr>
-
-      <h5  class="SettingsMenu">Start on Lowest Tonic / Next tonic</h5> 
-      <label  class="switch">
-        <input id="lowTon" type="checkbox">
-        <span class="slider round"></span>
-        </label>
-        <hr>
-        
-      <label  class="SettingsMenu" for="timeSig" id="timeLable">Time Signature</label>
-      <select class="settingDrop" name="timeSig" id="timeSigId" onchange="changeMeter()">
-        <option value="1">None</option>
-        <option value="2" selected>4/4 quarter notes</option>
-        <option value="3">4/4 eights notes</option>
-        <option value="4">3/4 quarter notes 🔒</option>
-        <option value="5">3/4 eights notes  🔒</option>
-        <option value="6">6/8 eights notes  🔒</option>
-      </select>
-    </label>
-    <hr>
-    <label  class="SettingsMenu" for="transpose" id="transLable">Transposition </label>
-    <select class="settingDrop" name="transpose" id="transId" onchange="changeTransposition()">
-      <option value=0>None (Concert)</option>
-      <option value=-9>Eb (alto sax)</option>
-      <option value=-21>Eb (bari sax)</option>
-      <option value=-2>Bb (trumpet)</option>
-      <option value=-14>Bb (tenor sax)</option>
-      <option value=-3>A (clarinet in A)</option>
-      <option value=-15>A (Bass cl. in A)</option>
-      <option value=-7>F (Horn)</option>
-      <option value=-5>G (Alto Fl.)</option>
-      <option value=-12>Octave↓ (Bass, Gtr)</option>
-      <option value=12>Octave↑ (piccolo)</option>
-      <option value=1>Db</option>
-      <option value=2>D</option>
-      <option value=4>E</option>
-      <option value=-4>Ab</option>
-      <option value=-6>Gb</option>
-      <option value=-1>B</option>
-    <!-- add more -->
-    </select>
-  <hr>
-
-
-  <label  class="SettingsMenu" for="countdownBars" id="countdownBarsLable">
-    Countdown Bars </label>
-  <select class="settingDrop" name="countdownBars" id="countdownBarsId"
-   onchange="changeCountdownBars()">
-    <option value=0>0</option>
-    <option value=1 selected>1</option>
-    <option value=2>2</option>
-  <!-- add more -->
-  </select>
-<hr>
-    
-    <h5  class="SettingsMenu" id="DispName">Display Note Names</h5> 
-      <label  class="switch">
-        <input id="NoteNames" type="checkbox">
-        <span class="slider round"></span>
-        </label>
-        <hr>
-        
-        <h5  class="SettingsMenu" id="lightDark">Light / Dark theme</h5> 
-        <label  class="switch">
-          <input onclick="lightDarkFunc()" id="lightSwitch" type="checkbox">
-          <span class="slider round"></span>
-          </label>
-          <hr>
-    <!-- <label  class="SettingsMenu" for="reverse" id="reverse">Reverse Pattern</label>
-    <select class="settingDrop" name="reverse" id="reverseId" onchange="">
-      <option value="1">Default</option>
-      <option value="2">Musical mode</option>
-      <option value="3">No Reverse</option>
-      TRYTRYTRY
-      TRYTRY
-    </select> -->
-      <button class="setBTN" id="editcustomscale">edit custom scale</button>
-      <hr>
-      
-      <button class="setBTN" id="about">about / info</button>
       </div>
+      <hr />
+      <div class="settings-row">
+        <h5 id="keySignatureText" class="SettingsMenu">Show Key Signature</h5>
+        <label class="switch">
+          <input id="keySignature" type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <hr />
+      <div class="settings-row">
+        <h5 id="startDownText" class="SettingsMenu">Start Down</h5>
+        <label class="switch">
+          <input id="startDownSwitch" type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <hr />
+      <div class="settings-row">
+        <h5 id="reversePatternText" class="SettingsMenu">
+          Reverse Pattern Going Down
+        </h5>
+        <label class="switch">
+          <input id="reversePatternSwitch" type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <hr />
+      <div class="settings-row">
+        <h5 class="SettingsMenu">Start on Lowest Tonic / Next tonic</h5>
+        <label class="switch">
+          <input id="lowTon" type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <hr />
+      <div class="settings-row">
+        <label class="SettingsMenu" for="timeSigId" id="timeLable"
+          >Time Signature</label
+        >
+        <select
+          class="settingDrop"
+          name="timeSig"
+          id="timeSigId"
+          onchange="changeMeter()"
+        >
+          <option value="1">None</option>
+          <option value="2" selected>4/4 quarter notes</option>
+          <option value="3">4/4 eights notes</option>
+          <option value="4">3/4 quarter notes 🔒</option>
+          <option value="5">3/4 eights notes 🔒</option>
+          <option value="6">6/8 eights notes 🔒</option>
+        </select>
+      </div>
+      <hr />
+      <div class="settings-row">
+        <label class="SettingsMenu" for="transId" id="transLable"
+          >Transposition
+        </label>
+        <select
+          class="settingDrop"
+          name="transpose"
+          id="transId"
+          onchange="changeTransposition()"
+        >
+          <option value="0">None (Concert)</option>
+          <option value="-9">Eb (alto sax)</option>
+          <option value="-21">Eb (bari sax)</option>
+          <option value="-2">Bb (trumpet)</option>
+          <option value="-14">Bb (tenor sax)</option>
+          <option value="-3">A (clarinet in A)</option>
+          <option value="-15">A (Bass cl. in A)</option>
+          <option value="-7">F (Horn)</option>
+          <option value="-5">G (Alto Fl.)</option>
+          <option value="-12">Octave↓ (Bass, Gtr)</option>
+          <option value="12">Octave↑ (piccolo)</option>
+          <option value="1">Db</option>
+          <option value="2">D</option>
+          <option value="4">E</option>
+          <option value="-4">Ab</option>
+          <option value="-6">Gb</option>
+          <option value="-1">B</option>
+        </select>
+      </div>
+      <hr />
+      <div class="settings-row">
+        <label class="SettingsMenu" for="countdownBarsId" id="countdownBarsLable"
+          >Countdown Bars
+        </label>
+        <select
+          class="settingDrop"
+          name="countdownBars"
+          id="countdownBarsId"
+          onchange="changeCountdownBars()"
+        >
+          <option value="0">0</option>
+          <option value="1" selected>1</option>
+          <option value="2">2</option>
+        </select>
+      </div>
+      <hr />
+      <div class="settings-row">
+        <h5 class="SettingsMenu" id="DispName">Display Note Names</h5>
+        <label class="switch">
+          <input id="NoteNames" type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <hr />
+      <div class="settings-row">
+        <h5 class="SettingsMenu" id="lightDark">Light / Dark theme</h5>
+        <label class="switch">
+          <input onclick="lightDarkFunc()" id="lightSwitch" type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <hr />
+      <button class="setBTN" id="editcustomscale">edit custom scale</button>
+      <hr />
+      <button class="setBTN" id="about">about / info</button>
+    </div>
     <div class="line1">
       <h3 id="statement">I want to practice a</h3>
       <!-- <label for="tonic" ;">select tonic</label> -->

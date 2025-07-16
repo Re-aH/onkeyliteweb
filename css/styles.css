@@ -4,7 +4,12 @@
   top: 0;
   right: 0;
 }
+body {
+  margin: 0;
+  padding: 0;
 
+  overflow-x: hidden;
+}
 body {
   background-color: rgb(255, 255, 255);
   text-align: center;
@@ -166,7 +171,7 @@ span.arrow {
   left: 7px;
   width: 0;
   height: 0;
-  content: '';
+  content: "";
   border-style: solid;
   border-width: 0 7px 8px 7px;
   border-color: transparent transparent #c7c7c7 transparent;
@@ -179,7 +184,7 @@ span.arrow {
   left: 7px;
   width: 0;
   height: 0;
-  content: '';
+  content: "";
   border-style: solid;
   border-width: 0 7px 8px 7px;
   border-color: transparent transparent rgba(0, 0, 0, 0.7) transparent;
@@ -192,7 +197,7 @@ span.arrow {
   left: 7px;
   width: 0;
   height: 0;
-  content: '';
+  content: "";
   border-style: solid;
   border-width: 8px 7px 0 7px;
   border-color: #c7c7c7 transparent transparent transparent;
@@ -205,7 +210,7 @@ span.arrow {
   left: 7px;
   width: 0;
   height: 0;
-  content: '';
+  content: "";
   border-style: solid;
   border-width: 8px 7px 0 7px;
   border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
@@ -249,55 +254,28 @@ span.arrow {
   width: 50%;
   height: 2.2rem;
   margin: auto;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   border: 2px;
   border-color: white;
   color: white;
   border-style: solid;
   background-color: #003366;
   border-radius: 20px;
-  display: block;
-}
-
-#DoReMiFa {
-  margin-right: 100px;
-}
-
-#timeLable {
-  margin-right: 175px;
-  margin-top: 5px;
+  /* display: block; */
 }
 
 #timeSigId {
-  margin-left: 85px;
-  margin-bottom: 5px;
+  width: 170px;
 }
 
-#keySignatureText {
-  margin-right: 90px;
+#transId {
+  width: 170px;
 }
 
-#startDownText {
-  margin-right: 148px;
+#countdownBarsId {
+  width: 35px;
 }
-
-#reversePatternText {
-  margin-right: 25px;
-}
-
-#countdownBarsLable {
-  margin-right: 115px;
-}
-
-#DispName {
-  margin-right: 80px;
-}
-
-#lightDark {
-  margin-right: 90px;
-}
-
 #customScaleHeader {
   padding-top: 0.1%;
   color: white;
@@ -329,7 +307,7 @@ span.arrow {
   border-style: solid;
   background-color: #003366;
   margin-top: 12px;
-  right: 125px;
+  right: 135px;
   border-radius: 5px;
 }
 
@@ -343,6 +321,11 @@ span.arrow {
   border-radius: 5px;
 }
 
+#about {
+  margin-bottom: 20px;
+  /* padding-bottom: 2px; */
+}
+
 #target4 {
   color: white;
   /* margin-left:; */
@@ -352,7 +335,7 @@ span.arrow {
 #settingsMenu {
   background-color: #003366;
   border-radius: 10px;
-  width: 300px;
+  width: 335px;
   height: fit-content;
   position: absolute;
   right: 10px;
@@ -435,7 +418,7 @@ span.arrow {
   display: inline-block;
   width: 3.3rem;
   height: 1.5rem;
-  bottom: 7px;
+  /* bottom: 7px; */
 }
 
 .switch input {
@@ -458,7 +441,7 @@ span.arrow {
 
 .slider:before {
   position: absolute;
-  content: '';
+  content: "";
   height: 1.3rem;
   width: 1.3rem;
   left: 4px;
@@ -860,6 +843,35 @@ table {
   padding-right: 5px;
 }
 
+#settingsMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.settings-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 18px;
+  margin-right: 18px;
+  min-height: 38px;
+}
+.settings-row label,
+.settings-row h5,
+.settings-row select {
+  margin: 0;
+}
+.settings-row .switch {
+  margin-left: 0.5rem;
+}
+
+/* Remove double margins from h5/label in settings menu */
+#settingsMenu h5.SettingsMenu,
+#settingsMenu label.SettingsMenu {
+  margin-top: 0;
+  margin-bottom: 0;
+}
 @media screen and (min-width: 650px) {
   #target5 {
     display: none;
